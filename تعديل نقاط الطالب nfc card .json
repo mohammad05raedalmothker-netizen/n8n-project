@@ -1,0 +1,362 @@
+{
+  "name": "student point",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "nfc-points",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -336,
+        208
+      ],
+      "id": "8c3e401a-db22-49fd-8a11-fb20818b322f",
+      "name": "Webhook",
+      "webhookId": "cd0d59e5-4a72-4ab0-8235-d09405e47b9c"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0",
+          "mode": "list",
+          "cachedResultName": "student pointID",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "student id",
+              "lookupValue": "={{ $('Webhook').item.json.query.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        112,
+        192
+      ],
+      "id": "8ba36827-9104-4335-a27f-e80bc3dbe611",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RNj1eIei3ykBFmNV",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b56f46b5-7a7b-4662-941f-bb163b091a99",
+              "leftValue": "={{ $json['student id'] }}",
+              "rightValue": "={{ $('Webhook').item.json.query.id }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        320,
+        192
+      ],
+      "id": "89160907-ef84-4da3-826e-22ede80d6380",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "489c0e50-825d-4d03-b770-b6e59657f835",
+              "name": "new point",
+              "value": "={{ $json.Points + 10 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        176
+      ],
+      "id": "71707c84-0267-483d-bf2e-9f34e974a92c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0",
+          "mode": "list",
+          "cachedResultName": "student pointID",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1z9g2dpH1LcAMyAMetnOFFFaptM2aUc3HMp2eGom1HN0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "student id": "={{ $('Webhook').item.json.query.id }}",
+            "Points": "={{ $json['new point'] }}"
+          },
+          "matchingColumns": [
+            "student id"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Points",
+              "displayName": "Points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last Update",
+              "displayName": "Last Update",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "student id",
+              "displayName": "student id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "النقاط",
+              "displayName": "النقاط",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "new point",
+              "displayName": "new point",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        720,
+        176
+      ],
+      "id": "b9eea575-19e2-424e-8159-fcf382688f61",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RNj1eIei3ykBFmNV",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a4be8cc5-5f7b-40c4-a23c-7f4ea4583d97",
+              "leftValue": "={{ $json.headers['user-agent'] }}",
+              "rightValue": "Mozilla/5.0",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "4904507c-e407-48db-aefd-ea2c163ed2ab",
+              "leftValue": "={{ $json.headers['x-real-ip'] }}",
+              "rightValue": "2a01:9700:3e10:6200:80ff:41af:d386:e21a",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -112,
+        208
+      ],
+      "id": "2f5e7621-016b-42c0-b36f-0c8b3a61b054",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 240,
+        "width": 1280,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -368,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "78d5f9b7-cb3d-4619-8d6a-1f7e9bdd86cd",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ad9a74fc-ffb2-43ef-a36e-387c9b3c182c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5d8e60d715e5198a95323040fa902cc33fbfdf91863850d8a8967e8c8f930380"
+  },
+  "id": "YbUapc7K4OKanRe2AXpRQ",
+  "tags": []
+}

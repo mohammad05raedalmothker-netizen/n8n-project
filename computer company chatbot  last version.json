@@ -1,0 +1,214 @@
+{
+  "name": "computer company chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4cd6811b-842a-4279-8dc0-9fdf101eae99",
+      "name": "When chat message received",
+      "webhookId": "cd14553d-2bd1-42b4-973b-d6da37cac4eb"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You represent a computer company . Please answer customer inquiries using the information provided in the\nGoogle Sheet. Please send an email to the\nowner only if the customer requests to purchase a device. Before sending the email, ask the customer for their name and phone number, and send them to the owner via Email.\nplease arrange the email in very well format"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "642847a5-f9a5-4535-98a3-fa03bd91b168",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "4a2d7bf5-4bf2-419a-ba88-909892a95187",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "almothker13@gmail.com",
+        "subject": "custemer information ",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        192
+      ],
+      "id": "9da86eb3-2c71-4aca-91cf-8fb2cc95e1e1",
+      "name": "Send a message in Gmail",
+      "webhookId": "fc136cfe-d126-4ab7-b949-0980e07dddea",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "0J9FizfypnCQqvrz",
+          "name": "Gmail account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Pz2kZNRp5PD0jpnANUKrDgEvc0MWMtB9xsgfelakoAo",
+          "mode": "list",
+          "cachedResultName": "computecore_catalog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pz2kZNRp5PD0jpnANUKrDgEvc0MWMtB9xsgfelakoAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 127932193,
+          "mode": "list",
+          "cachedResultName": "computecore_catalog",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Pz2kZNRp5PD0jpnANUKrDgEvc0MWMtB9xsgfelakoAo/edit#gid=127932193"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        368,
+        208
+      ],
+      "id": "d5376271-a513-43b9-af42-55235136f156",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "0QFu8iOImfiN09iW",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "487442b2-1c9d-461f-9bc9-a4ee66d5bfbe",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "9Uwrkq6JdQAOsAEU",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "chatbot\n",
+        "height": 448,
+        "width": 672
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -32,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "4ed0361e-07f7-46b3-94dc-df0078f4f589",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "85753b64-c79a-4954-8bcb-01184e915d8a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f1629fa1d8ffd29809246092679f350ac8ec147d407fd720fe8ae72826fcc55"
+  },
+  "id": "3vQt6yJ6to6aGsL0OrWxj",
+  "tags": []
+}

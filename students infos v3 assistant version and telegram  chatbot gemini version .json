@@ -1,0 +1,1344 @@
+{
+  "name": "students infos v3 assistant version and telegram chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "students infos ",
+        "formDescription": "IOT course",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "الاسم",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "الهاتف",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "الايميل",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "هل تملك اي استفسارات ؟ (سوف يقوم الرد بالتواصل للرد على استفسارك)",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "نعم "
+                  },
+                  {
+                    "option": "لا"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "هل شاركت باي فعالية سابقة مع المعالي ؟ ",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "نعم"
+                  },
+                  {
+                    "option": "لا"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "سعر الدورة خمسة دنانير ، كيف تفضل الدفع",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "كاش"
+                  },
+                  {
+                    "option": "محفظة"
+                  },
+                  {
+                    "option": "كليك"
+                  },
+                  {
+                    "option": "لا اريد الدفع"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        384,
+        272
+      ],
+      "id": "496639ef-34e3-42d4-8119-c9cda9b4e989",
+      "name": "On form submission",
+      "webhookId": "f6107f91-22d0-4078-bab3-e650fc1cf60c"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "الاسم": "={{ $json['الاسم'] }}",
+            "الهاتف": "={{ $json['الهاتف'] }}",
+            "الايميل": "={{ $json['الايميل'] }}",
+            "طريقة الدفع": "={{ $json['سعر الدورة خمسة دنانير ، كيف تفضل الدفع'] }}",
+            "مشارك سابق ": "={{ $json['هل شاركت باي فعالية سابقة مع المعالي ؟ '] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "الاسم",
+              "displayName": "الاسم",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "الهاتف",
+              "displayName": "الهاتف",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "الايميل",
+              "displayName": "الايميل",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "طريقة الدفع",
+              "displayName": "طريقة الدفع",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "مشارك سابق ",
+              "displayName": "مشارك سابق ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        304
+      ],
+      "id": "efd3c434-b776-41a6-b601-086e41a7bf69",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BIbAeNQMvw4TkRrr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7474ad38-cb32-425b-9503-ed49b06832a9",
+              "leftValue": "={{ $json['طريقة الدفع'] }}",
+              "rightValue": "محفظة",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "cec7ba9f-0b4a-4613-bcfe-d5de64e5e3f7",
+              "leftValue": "={{ $json['طريقة الدفع'] }}",
+              "rightValue": "كليك",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        960,
+        400
+      ],
+      "id": "23a6b9cc-e58b-474a-ba3b-904588469f83",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['الايميل'] }}",
+        "subject": "آلية الدفع الإلكتروني",
+        "emailType": "text",
+        "message": "لتأكيد تسجيلك في الدورة، نرجو التكرّم باستكمال دفع الرسوم عبر التحويل الإلكتروني.\nبعد إتمام الدفع، سيتم إرسال جميع تفاصيل الوصول مباشرة.\nالتحويل لمحفظة اورنج موني الى الرقم xxx وارسال سكرين شوت او ايصال الفي نفس المحادثة\nفي حال واجهت أي مشكلة أو تم الدفع مسبقًا، يرجى تجاهل الرسالة أو التواصل معنا، ويسعدنا خدمتك 💙",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        336
+      ],
+      "id": "b51ef577-b639-403a-8e55-9af768509142",
+      "name": "Send a message3",
+      "webhookId": "c4e12331-57da-453f-ab1d-f79085e773fc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['الايميل'] }}",
+        "subject": "آلية الدفع النقدي (كاش)",
+        "emailType": "text",
+        "message": "=السلام عليكم ورحمة الله وبركاته،\n\nلتأكيد تسجيلك في الدورة، نرجو التكرّم باستكمال دفع الرسوم نقدًا (كاش) في الموعد المتفق عليه.\nيوم xx الساعة xx في مصلى كلية العلوم او التربوية\nبعد استلام الرسوم سيتم إرسال جميع تفاصيل الدورة مباشرة.\nفي حال وجود أي استفسار أو تغيير بالموعد، يسعدنا تواصلك معنا 💙",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        368
+      ],
+      "id": "d3914f01-d8d6-430d-bce9-7a66815f2da5",
+      "name": "Send a message4",
+      "webhookId": "e52d6ac0-f97c-475c-ba60-e341b9321527",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b0d77691-d233-4b59-ab29-ef4ec9e3b861",
+              "leftValue": "={{ $json['طريقة الدفع'] }}",
+              "rightValue": "كاش",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1168,
+        480
+      ],
+      "id": "caffa721-c98a-4cd9-b3dd-b9a8420c2754",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Append row in sheet').item.json['الايميل'] }}",
+        "subject": "بخصوص استكمال التسجيل في الدورة",
+        "message": "=السلام عليكم ورحمة الله وبركاته،  نقدّر تواصلكم معنا، ونود إعلامكم بأنه في حال تعذّر عليكم استكمال إجراءات الدفع في الوقت الحالي، يمكننا تحويل تسجيلكم في الدورة إلى تسجيل مجاني دعمًا لكم وحرصًا منا على إتاحة فرصة التعلم للجميع.  يرجى تأكيد رغبتكم بالاستمرار في الدورة، وسيتم استكمال إجراءات التسجيل دون أي التزامات مالية.  في حال وجود أي استفسار أو رغبة بالتوضيح، يسعدنا دائمًا التواصل معكم ومساعدتكم.  مع تمنياتنا لكم بالتوفيق، ونتشرف بانضمامكم معنا.  مع خالص التحية، إدارة الدورة",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1360,
+        544
+      ],
+      "id": "314bbab2-b701-4734-b452-50809a32ff57",
+      "name": "Send a message5",
+      "webhookId": "2b1ae843-9384-4f76-bade-739336ea3375",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6a8b514a-4421-4a2f-90b7-cb91f8ff508b",
+              "leftValue": "={{ $json['هل تملك اي استفسارات ؟ (سوف يقوم الرد بالتواصل للرد على استفسارك)'] }}",
+              "rightValue": "نعم",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        816,
+        224
+      ],
+      "id": "99df9bf9-085d-4e9a-b3f6-b6eabbb2b737",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "content": "## مرحلة الدفع والتسجيل",
+        "height": 704,
+        "width": 1456,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        320,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "bac4304e-0264-40e8-8b76-fdb00c7c97ec",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1416527885,
+          "mode": "list",
+          "cachedResultName": "it support",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=1416527885"
+        },
+        "event": "rowUpdate",
+        "options": {
+          "columnsToWatch": [
+            "حالة الدفع "
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        688,
+        784
+      ],
+      "id": "98f59719-3346-4084-b6f5-b0e619df5ffd",
+      "name": "Google Sheets Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5fab6118-7f7e-46a6-ba5c-9266521bce7f",
+              "leftValue": "={{ $json['حالة الدفع '] }}",
+              "rightValue": "تم",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        944,
+        768
+      ],
+      "id": "58d8b66c-01bd-47c4-bd7d-d15a4f801519",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1072f900-87d8-4b0b-b3bb-c1616db46e08",
+              "leftValue": "={{ $json[\"اضافته للمجموعة\"] }}\n",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1184,
+        784
+      ],
+      "id": "32ecdeba-16bd-4300-85f4-a1fb4429bcfd",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "content": "## حالة الدفع والاضافة للمجموعة\n\n",
+        "height": 224,
+        "width": 1280
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        320,
+        704
+      ],
+      "typeVersion": 1,
+      "id": "0bf9c2e1-7dc1-4bd3-81f4-a0449b290996",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['الايميل'] }}",
+        "subject": "=مرحبا ، {{ $('On form submission').item.json['الاسم'] }}\n\n",
+        "emailType": "text",
+        "message": "=\nانا مساعد فريق المعالي ، للاجابة على استفسارك عبر الرابط:\nhttps://mohammad05r.app.n8n.cloud/webhook/b105ab89-ed7a-4110-8259-cd75e87d22b2/chat",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        224
+      ],
+      "id": "b4d29799-ed52-4b0f-8c34-7bf644d55500",
+      "name": "Send a message",
+      "webhookId": "3443636a-7dbc-4db2-9bee-ae16b277366d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        1408,
+        784
+      ],
+      "id": "31247bdf-53d8-46e7-8007-078e29706c62",
+      "name": "Send message",
+      "webhookId": "242e2f95-998d-4872-9366-50a09dde7ae3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1416527885,
+          "mode": "list",
+          "cachedResultName": "it support",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=1416527885"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "الرد الالي": "=",
+            "الاسم": "={{ $json['الاسم'] }}",
+            "الهاتف": "={{ $json['الهاتف'] }}",
+            "طريقة الدفع": "={{ $json['سعر الدورة خمسة دنانير ، كيف تفضل الدفع'] }}",
+            "الاستفسار": "={{ $json['هل تملك اي استفسارات ؟ (سوف يقوم الرد بالتواصل للرد على استفسارك)'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "الاسم",
+              "displayName": "الاسم",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "الاستفسار",
+              "displayName": "الاستفسار",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "الهاتف",
+              "displayName": "الهاتف",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "طريقة الدفع",
+              "displayName": "طريقة الدفع",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "مشاكل اخرى",
+              "displayName": "مشاكل اخرى",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "حالة الدفع ",
+              "displayName": "حالة الدفع ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "اضافته للمجموعة",
+              "displayName": "اضافته للمجموعة",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "الرد الالي",
+              "displayName": "الرد الالي",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1280,
+        80
+      ],
+      "id": "12279ceb-49f6-4565-95c1-b05ed58f1488",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BIbAeNQMvw4TkRrr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1056,
+        64
+      ],
+      "id": "e2baa0db-9d0e-4dfa-b983-3a22483631cc",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "content": "##  مساعد المعالي الذكي",
+        "height": 928,
+        "width": 1056,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1600,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "1575313d-d0b1-448c-b0b8-74c60214f5ce",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Role: You are \"Al-Ma'ali Smart Assistant\" (مساعد المعالي الذكي), a professional and helpful AI concierge.\n\nObjective: Your primary goal is to assist users by retrieving information from the provided Google Sheets database and escalating unresolved issues to the support team via Gmail.\n\nCommunication Guidelines:\n\nInitial Greeting: Always start the very first interaction with: \"أهلاً بك، أنا مساعد المعالي الذكي، كيف يمكنني مساعدتك؟\"\n\nInformation Retrieval: For every user inquiry, you must first search the Google Sheets tool. Provide answers strictly based on the data found there.\n\nTone: Maintain a professional, polite, and welcoming tone in Arabic.\n\nEscalation Protocol (Fallback): If the user's inquiry is not covered in the Google Sheets or if you cannot find a relevant answer, follow these steps:\n\nInform the user that you couldn't find the specific information and offer to transfer their request to the support team.\n\nProactively collect the following details from the user:\n\nFull Name (الاسم الكامل)\n\nEmail Address (البريد الإلكتروني)\n\nPhone Number (رقم الهاتف)\n\nDetailed Issue/Inquiry (تفاصيل المشكلة)\n\nOnce all details are gathered, use the Gmail tool to send a formal support ticket.\n\nConstraints:\n\nDo not make up information. If it’s not in the sheet, move to the escalation protocol.\n\nEnsure the final email sent to support is well-structured and includes all user-provided data."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1856,
+        80
+      ],
+      "id": "aa81c215-ccaf-4fb3-b74b-5f40a35c2e54",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 50
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1952,
+        288
+      ],
+      "id": "89ee71be-9709-4ecb-ac44-cdfb1afb1277",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "sendTo": "almothker13@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        2240,
+        224
+      ],
+      "id": "40938f86-c58d-4602-b544-0b84d064d295",
+      "name": "Send a message in Gmail1",
+      "webhookId": "aebd87ef-33ff-4b3b-9619-3a2290c5fadf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1513136704,
+          "mode": "list",
+          "cachedResultName": "معلومات",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=1513136704"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        2112,
+        256
+      ],
+      "id": "434ac365-e49c-4b2e-9706-168e709c46d6",
+      "name": "Get row(s) in sheet in Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BIbAeNQMvw4TkRrr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "مرحبا ، انا مساعد فريق المعالي الذكي\nكيف يمكنني مساعدتك ؟ ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        1632,
+        192
+      ],
+      "id": "b1d495a6-fffc-4a75-98a2-e85377af232e",
+      "name": "When chat message received",
+      "webhookId": "483546db-c020-497e-b05b-494d3ff8d5d4"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1616,
+        560
+      ],
+      "id": "411625a3-4835-42a1-b5fb-ed87b86f569b",
+      "name": "Telegram Trigger",
+      "webhookId": "d9451d73-8480-4657-be64-6de11fcccf0b",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZrV7ddqMCr9rdqoG",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "YRole: You are the \"Al-Ma'ali Smart Assistant\" (مساعد المعالي الذكي). You are a precise, logical assistant that operates strictly through defined tools.\n\n1. Communication Style\nGreeting (Mandatory): Your very first response must start exactly with: \"أنا مساعد فريق المعالي الذكي، كيف يمكنني مساعدتك؟\".\n\nLanguage: All user-facing communication must be in Arabic.\n\nTone: Professional and helpful.\n\n2. Operation Logic (Read Carefully)\nYou have two distinct workflows. Never mix them:\n\nA. General Inquiries (Information Retrieval):\n\nUse the \"Instructions/Q&A Sheet\" tool.\n\nSearch only for the user's specific topic.\n\nRule: If the answer is not in the sheet, respond with: \"أنا غير قادر على الإجابة على هذا الاستفسار حالياً\".\n\nNo Hallucination: Do not use internal knowledge or assumptions.\n\nB. Appointment Booking (Five-Step Protocol):\n\nCheck: When a time is mentioned, immediately call \"Read Appointments Sheet\".\n\nValidate: > * If the tool returns \"Busy/Taken\": Tell the student the slot is unavailable and stop. Ask for a new time.\n\nIf \"Available\": Proceed to step 3.\n\nCollect: Ask the student for their Full Name and the Sheikh's Name.\n\nExecute (Background): Once you have (Time, Name, Sheikh), trigger these three tools in order:\n\nGoogle Calendar: Create a 30-minute event.\n\nGmail: Send booking details.\n\nSheikh Registration: Log the data.\n\nConfirm: Once tools finish, say: \"تم حجز الموعد بنجاح\".\n\n3. Strict Safety Guardrails\nPrivacy: If you see other students' names in the sheets, NEVER mention them.\n\nConfirmation: Do not trigger Gmail or Calendar tools until you have all 3 pieces of info (Name, Time, Sheikh).\n\nDuration: Always set the duration to 30 minutes.\n\nNo Technical Talk: Do not tell the user which \"tools\" or \"sheets\" you are using. Just provide the answer."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1952,
+        560
+      ],
+      "id": "394083ff-a5d4-4ac8-9a4b-df3abe6a019f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.from.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1936,
+        752
+      ],
+      "id": "9ee8b0a1-7a3b-44a3-a6ba-5033e6df30e3",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1513136704,
+          "mode": "list",
+          "cachedResultName": "معلومات",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=1513136704"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        2368,
+        768
+      ],
+      "id": "2e95ce6c-2ca4-47d4-8e1e-b6be06e69161",
+      "name": "Knowledge_Base_Tool",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BIbAeNQMvw4TkRrr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk",
+          "mode": "list",
+          "cachedResultName": "معلومات الطالب",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 532844782,
+          "mode": "list",
+          "cachedResultName": "المواعيد المحجوزة",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IexMfdMJ1RAfAUFhXmhCdjVRGsfGjoUZ2Pr9xmoTyuk/edit#gid=532844782"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        2496,
+        752
+      ],
+      "id": "09c18bed-999d-4518-851c-22629eb71681",
+      "name": "Check_Appointments_Tool",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BIbAeNQMvw4TkRrr",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "mohammad05n8n@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        2112,
+        768
+      ],
+      "id": "806a6510-e03f-42b5-8a64-1c706b160327",
+      "name": "send event detals",
+      "webhookId": "72df9ecd-3725-4692-8e3d-ac3bc6921450",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iXD18OR5uxR6KPcQ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "mohammad05n8n@gmail.com",
+          "mode": "list",
+          "cachedResultName": "mohammad05n8n@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "attendees": [],
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}",
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        2240,
+        768
+      ],
+      "id": "ac4fbc6b-54ac-4a15-af0e-9ad781eb9206",
+      "name": "events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "3E5Tjgnc8EKU5nbh",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2272,
+        560
+      ],
+      "id": "a33aade8-0380-4129-9f24-117a90adacae",
+      "name": "Send a text message",
+      "webhookId": "a1389aa3-2319-42ef-bf4b-8885225e0d6d",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZrV7ddqMCr9rdqoG",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## telegram chatbot\n",
+        "height": 464,
+        "width": 1056,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1600,
+        464
+      ],
+      "typeVersion": 1,
+      "id": "90503116-cea7-433d-baa3-c27f04653738",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-flash-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        288
+      ],
+      "id": "b05f0c0b-8097-45b8-b4c8-660ed1ed05ee",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "yABE0oqaUqgoKRXc",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3-flash-preview",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        736
+      ],
+      "id": "b2bacd66-6815-4c45-b0b4-20e565aaa51d",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "yABE0oqaUqgoKRXc",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1776,
+        560
+      ],
+      "id": "57fdcbeb-ba3e-4352-9b89-21ef2d4061ea",
+      "name": "Wait",
+      "webhookId": "39a92a60-c812-4407-a3cc-b602524fea86"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Send a message3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Send a message4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        []
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Knowledge_Base_Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check_Appointments_Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "send event detals": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "events": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "62a218b0-b69a-4aae-8d50-27ff36338887",
+  "meta": {
+    "instanceId": "5d8e60d715e5198a95323040fa902cc33fbfdf91863850d8a8967e8c8f930380"
+  },
+  "id": "qtfx8Z6yPAiMpeTs",
+  "tags": []
+}
